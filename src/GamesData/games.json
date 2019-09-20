@@ -1,0 +1,30 @@
+[
+  {
+    "id": 0,
+    "title": "Tekken 7",
+    "description": "Tekken 7 is a fighting game developed and published by Bandai Namco Entertainment. The game is the ninth installment in the Tekken series, and the first to make use of the Unreal Engine. The game first had a proper arcade release in Japan around August 2015 which was followed by an updated version (Fated Retribution) in July 2016 which featured new content such as stages, costumes, items and characters. The home versions for PC, PlayStation 4 and Xbox One were released worldwide in June 2017.",
+    "image": "../images/Tekken7.png",
+    "Type": "Fighting",
+    "imageSrc":"/static/media/Tekken7.04cd4b84.png"
+  },
+
+  {
+    "id": 1,
+    "title": "StreetFighter 5",
+    "description": "Street Fighter V is the fifth main game in the Street Fighter series. It takes place in between the events of Street Fighter IV and Street Fighter III; serving as a sequel and prequel respectively. It is available on PlayStation 4 and PC, and features cross-platform play.",
+    "image": "../images/SF5.png",
+    "Type": "Fighting",
+    "imageSrc":"/static/media/SF5.a9376522.png"
+  },
+
+  { "id": 2, "title": "Tekken 7", "description": "", "image": "", "Type": "Fighting",
+    "imageSrc":"" },
+  {
+    "id": 3,
+    "title": "Tekken 7",
+    "description": "",
+    "image": "",
+    "Type": "Fighting",
+    "imageSrc":""
+  }
+]
