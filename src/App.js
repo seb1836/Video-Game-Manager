@@ -11,21 +11,22 @@ import tekken from './images/Tekken7.png'
 import streetFighter from './images/SF5.png'
 
 let imageGame = [tekken, streetFighter]
-let gameTitleStringify=GameList.map((game) =>{
-  let stringifyTitle=JSON.stringify(game.title)
+let gameTitleStringify = GameList.map(game => {
+  let stringifyTitle = JSON.stringify(game.title)
   return stringifyTitle.replace(/"/g, '')
 })
 
 let file = editJsonFile('./GamesData/games.json')
 
 let arrayFiltered = []
-    let arrayIndex = []
+let arrayIndex = []
+let arrayMatch =[]
 
 class App extends Component {
-  state = { gameArray: GameList, isOnHome:true }
+  state = { gameArray: GameList, isOnHome: true }
 
   displayer = () => {
-    console.log(gameTitleStringify,"arraytitle------",typeof(gameTitleStringify[0],"type"))
+    console.log(gameTitleStringify, 'arraytitle------', typeof (gameTitleStringify[0], 'type'))
   }
 
   updateDescription = (currentGameId, newDescription) => {
@@ -42,9 +43,8 @@ class App extends Component {
     })
   }
 
-  changeIsOnHomeState =() =>{
-    
-    this.setState({isOnHome:!this.state.isOnHome},()=>console.log("called",this.state.isOnHome))
+  changeIsOnHomeState = () => {
+    this.setState({ isOnHome: !this.state.isOnHome }, () => console.log('called', this.state.isOnHome))
   }
 
   deletGame = currentGameId => {
@@ -57,25 +57,36 @@ class App extends Component {
     })
   }
 
-  searchGame =(searchValue) =>{
-    let arrayMatch= gameTitleStringify.map((string)=>{ return string.slice(0,searchValue.length) })
-    arrayMatch.forEach((element,index) => {
-      if(searchValue === arrayMatch[index]){
-        
-      }
-    });
-     arrayIndex = []
-    console.log("myarraystr",arrayMatch)
-    if(searchValue.length>0){
-    //this.setState({gameArray:this.state.gameArray.map((game,index)=>{
-      if(searchValue === arrayMatch[index]){
-          return game
-      }
-return 'q'
-    })},() => console.log(this.state.gameArray,"gamearrayfetr"))
-
+arrayMatchFiller =(searchWord) =>{
+for(let i=0; i<gameTitleStringify.length;i++){
+  console.log(gameTitleStringify[i],"beforecondition",searchWord,gameTitleStringify[i].slice(0,searchWord.length))
+  if(searchWord===gameTitleStringify[i].slice(0,searchWord.length)){
+    console.log(gameTitleStringify[i],"Aftercondition")
+    arrayMatch.push(gameTitleStringify[i].slice(0,searchWord.length));
   }
-  
+}
+}
+
+  searchGame = searchValue => {
+    if (searchValue.length > 0) {
+       //arrayMatch =arrayMatch.push (gameTitleStringify.forEach(string => { if(searchValue===string){
+       // return string.slice(0, searchValue.length)}
+     // }))
+     this.arrayMatchFiller(searchValue)
+      console.log("arrayMatch",arrayMatch)
+      arrayIndex = arrayIndex.push(arrayMatch.forEach((element, index) => {
+        if (searchValue === element) {
+          return index
+          
+        }
+      }))
+      
+      arrayFiltered = this.state.gameArray.filter((game, index) => {
+        let stringifyId = JSON.stringify(game.id)
+        return stringifyId !== arrayIndex[index]
+      })
+    }
+    this.setState({gameArray:arrayFiltered})
   }
 
   render() {
@@ -83,15 +94,27 @@ return 'q'
       <Fragment>
         {this.displayer()}
         <Router>
-          <NavBar isOnHomeForNav={this.state.isOnHome} isOnHome={this.changeIsOnHomeState} searchGame={this.searchGame}></NavBar>
+          <NavBar
+            isOnHomeForNav={this.state.isOnHome}
+            isOnHome={this.changeIsOnHomeState}
+            searchGame={this.searchGame}
+          ></NavBar>
           <Route
             path='/'
             exact
-            render={props => <Home gameArray={this.state.gameArray} imageGame={imageGame} isOnHome={this.changeIsOnHomeState}></Home>}
+            render={props => (
+              <Home gameArray={this.state.gameArray} imageGame={imageGame} isOnHome={this.changeIsOnHomeState}></Home>
+            )}
           />
           <Route
             path='/Details'
-            render={props => <Details updateDescription={this.updateDescription} deletGame={this.deletGame} isOnHome={this.changeIsOnHomeState}></Details>}
+            render={props => (
+              <Details
+                updateDescription={this.updateDescription}
+                deletGame={this.deletGame}
+                isOnHome={this.changeIsOnHomeState}
+              ></Details>
+            )}
           />
         </Router>
       </Fragment>
