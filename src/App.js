@@ -6,7 +6,7 @@ import Home from './Pages/Home'
 import Details from './Pages/Details'
 import NavBar from './Components/Navbar'
 import GameList from './GamesData/games.json'
-import editJsonFile from 'edit-json-file'
+//import editJsonFile from 'edit-json-file'
 import tekken from './images/tekken7.png'
 import streetfighter from './images/streetfighter5.png'
 
@@ -16,15 +16,15 @@ let gameTitleStringify = GameList.map(game => {
   return stringifyTitle.replace(/"/g, '')
 })
 
-let file = editJsonFile('./GamesData/games.json')
+//let file = editJsonFile('./GamesData/games.json')
 
 let arrayFiltered = []
-let arrayIndex = []
-let arrayMatch = []
+//let arrayIndex = []
+//let arrayMatch = []
 let originalGameArray= GameList
-let originalImageGame= imageGame
+
 class App extends Component {
-  state = { gameArray: GameList, isOnHome: true, isArrayEmpty:false }
+  state = { gameArray: GameList, isOnHome: true, isOneEntryBeenRemoved:false }
 
   displayer = () => {
     console.log(gameTitleStringify, 'arraytitle------', typeof (gameTitleStringify[0], 'type'))
@@ -46,10 +46,13 @@ class App extends Component {
 
   changeIsOnHomeState = () => {
     this.setState({ isOnHome: !this.state.isOnHome }, () => console.log('called', this.state.isOnHome))
+  //  if (this.state.isOneEntryBeenRemoved){
+  //    this.setState({ gameArray: arrayFiltered })
+  //  }else{ this.setState({ gameArray: GameList })}
   }
 
   deletGame = currentGameId => {
-    this.setState({ gameArray: this.state.gameArray.filter((game, index) => currentGameId !== game.id) })
+    this.setState({ gameArray: this.state.gameArray.filter((game, index) => currentGameId !== game.id),isOneEntryBeenRemoved:true })
     imageGame = imageGame.filter((img, indexImg) => {
       let imgSrcJson = JSON.stringify(GameList[currentGameId].imageSrc)
       imgSrcJson = imgSrcJson.replace(/"/g, '')
@@ -58,28 +61,28 @@ class App extends Component {
     })
   }
 
-  arrayMatchFiller = searchWord => {
-    for (let i = 0; i < gameTitleStringify.length; i++) {
-      console.log(
-        gameTitleStringify[i],
-        'beforecondition',
-        searchWord,
-        gameTitleStringify[i].slice(0, searchWord.length)
-      )
-      if (searchWord === gameTitleStringify[i].slice(0, searchWord.length)) {
-        console.log(gameTitleStringify[i], 'Aftercondition')
-        arrayMatch.push(gameTitleStringify[i].slice(0, searchWord.length))
-      }
-    }
-  }
+//  arrayMatchFiller = searchWord => {
+ //   for (let i = 0; i < gameTitleStringify.length; i++) {
+ //     console.log(
+ //       gameTitleStringify[i],
+ //       'beforecondition',
+//        searchWord,
+//        gameTitleStringify[i].slice(0, searchWord.length)
+//      )
+ //     if (searchWord === gameTitleStringify[i].slice(0, searchWord.length)) {
+ //       console.log(gameTitleStringify[i], 'Aftercondition')
+//        arrayMatch.push(gameTitleStringify[i].slice(0, searchWord.length))
+//      }
+ //   }
+//  }
 
   checkIfArrayIsEmpty =(arrayTreated) => {
     if (arrayTreated.length===0){
       alert("pass")
       arrayTreated = originalGameArray
-      this.setState({isArrayEmpty:true,gameArray: GameList})
+      this.setState({gameArray: GameList})
     }
-    this.setState({isArrayEmpty:false})
+    
   }
 
   searchGame = (e,searchValue) => {

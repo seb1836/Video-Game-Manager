@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import '../App.css'
-import NavBar from '../Components/Navbar'
-import { withRouter,Link  } from 'react-router-dom'
+
+import { withRouter } from 'react-router-dom'
 class Details extends Component {
   state = {
     isButtonEditClick: false,
@@ -42,7 +42,7 @@ class Details extends Component {
     } else {
       return (
         <Fragment>
-          <input value={this.state.description} />
+          <input value={this.state.description} readOnly />
           <button onClick={this.handleButtonEditClick}>edit</button>
         </Fragment>
       )
@@ -50,18 +50,15 @@ class Details extends Component {
   }
 
   handleButtondeletClick = () => {
+    alert('game is delet')
     this.props.deletGame(this.props.location.state.id)
-    this.props.isOnHome()
-
   }
   render() {
     return (
       <Fragment>
         <img className='detailsImg' src={this.props.location.state.image} alt='Game'></img>
         <p>{this.props.location.state.title}</p>
-        <Link to="/">
         <button onClick={this.handleButtondeletClick}>deletGame</button>
-        </Link>
         {this.renderDescritption()}
         {this.displayer()}
       </Fragment>

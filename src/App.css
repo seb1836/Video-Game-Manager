@@ -31,3 +31,11 @@
     transform: rotate(360deg);
   }
 }
+
+.GameCardImg{
+  max-width: 400px;
+}
+nav {
+  display:flex;
+  background:black
+}
