@@ -7,10 +7,10 @@ import Details from './Pages/Details'
 import NavBar from './Components/Navbar'
 import GameList from './GamesData/games.json'
 import editJsonFile from 'edit-json-file'
-import tekken from './images/Tekken7.png'
-import streetFighter from './images/SF5.png'
+import tekken from './images/tekken7.png'
+import streetfighter from './images/streetfighter5.png'
 
-let imageGame = [tekken, streetFighter]
+let imageGame = [tekken, streetfighter]
 let gameTitleStringify = GameList.map(game => {
   let stringifyTitle = JSON.stringify(game.title)
   return stringifyTitle.replace(/"/g, '')
@@ -20,10 +20,11 @@ let file = editJsonFile('./GamesData/games.json')
 
 let arrayFiltered = []
 let arrayIndex = []
-let arrayMatch =[]
-
+let arrayMatch = []
+let originalGameArray= GameList
+let originalImageGame= imageGame
 class App extends Component {
-  state = { gameArray: GameList, isOnHome: true }
+  state = { gameArray: GameList, isOnHome: true, isArrayEmpty:false }
 
   displayer = () => {
     console.log(gameTitleStringify, 'arraytitle------', typeof (gameTitleStringify[0], 'type'))
@@ -57,36 +58,55 @@ class App extends Component {
     })
   }
 
-arrayMatchFiller =(searchWord) =>{
-for(let i=0; i<gameTitleStringify.length;i++){
-  console.log(gameTitleStringify[i],"beforecondition",searchWord,gameTitleStringify[i].slice(0,searchWord.length))
-  if(searchWord===gameTitleStringify[i].slice(0,searchWord.length)){
-    console.log(gameTitleStringify[i],"Aftercondition")
-    arrayMatch.push(gameTitleStringify[i].slice(0,searchWord.length));
-  }
-}
-}
-
-  searchGame = searchValue => {
-    if (searchValue.length > 0) {
-       //arrayMatch =arrayMatch.push (gameTitleStringify.forEach(string => { if(searchValue===string){
-       // return string.slice(0, searchValue.length)}
-     // }))
-     this.arrayMatchFiller(searchValue)
-      console.log("arrayMatch",arrayMatch)
-      arrayIndex = arrayIndex.push(arrayMatch.forEach((element, index) => {
-        if (searchValue === element) {
-          return index
-          
-        }
-      }))
-      
-      arrayFiltered = this.state.gameArray.filter((game, index) => {
-        let stringifyId = JSON.stringify(game.id)
-        return stringifyId !== arrayIndex[index]
-      })
+  arrayMatchFiller = searchWord => {
+    for (let i = 0; i < gameTitleStringify.length; i++) {
+      console.log(
+        gameTitleStringify[i],
+        'beforecondition',
+        searchWord,
+        gameTitleStringify[i].slice(0, searchWord.length)
+      )
+      if (searchWord === gameTitleStringify[i].slice(0, searchWord.length)) {
+        console.log(gameTitleStringify[i], 'Aftercondition')
+        arrayMatch.push(gameTitleStringify[i].slice(0, searchWord.length))
+      }
     }
-    this.setState({gameArray:arrayFiltered})
+  }
+
+  checkIfArrayIsEmpty =(arrayTreated) => {
+    if (arrayTreated.length===0){
+      alert("pass")
+      arrayTreated = originalGameArray
+      this.setState({isArrayEmpty:true,gameArray: GameList})
+    }
+    this.setState({isArrayEmpty:false})
+  }
+
+  searchGame = (e,searchValue) => {
+    console.log("imgarray------",imageGame)
+    if (searchValue.length > 0) {
+      //arrayMatch =arrayMatch.push (gameTitleStringify.forEach(string => { if(searchValue===string){
+      // return string.slice(0, searchValue.length)}
+      // }))
+      arrayFiltered = this.state.gameArray.filter(game => {
+        let gameTitleStringify = JSON.stringify(game.title)
+        gameTitleStringify = gameTitleStringify.replace(/"/g, '')
+        console.log(gameTitleStringify, 'gameTitleStringify')
+        const gameTitleToLowerCase = gameTitleStringify.toLowerCase()
+        const searchTermToLowerCase = searchValue.toLowerCase()
+        return gameTitleToLowerCase.includes(searchTermToLowerCase)
+      })
+      
+      //imageGame = imageGame.filter(image => image.includes(searchTermToLowerCase)
+
+      //)
+    }else{
+      arrayFiltered = originalGameArray
+    }
+    
+    console.log(arrayFiltered, 'aftertreat')
+   // this.checkIfArrayIsEmpty(arrayFiltered)
+    this.setState({ gameArray: arrayFiltered },() =>this.checkIfArrayIsEmpty(arrayFiltered))
   }
 
   render() {

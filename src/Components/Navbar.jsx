@@ -7,7 +7,7 @@ class Navbar extends Component {
   }
 
   onSearchChange = e => {
-   this.setState({searchString:e.target.value},() => this.props.searchGame(this.state.searchString))
+   this.setState({searchString:e.target.value},() => this.props.searchGame(e,this.state.searchString))
  
    
   }

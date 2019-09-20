@@ -3,8 +3,8 @@ import '../App.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import GameList from '../GamesData/games.json'
 import GameCard from '../Components/GameCard'
-import tekken from '../images/Tekken7.png'
-import streetFighter from  '../images/SF5.png'
+import tekken from '../images/tekken7.png'
+import streetFighter from  '../images/streetfighter5.png'
 
 
 const imageGame=[tekken,streetFighter]
