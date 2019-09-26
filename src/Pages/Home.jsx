@@ -15,10 +15,11 @@ class Home extends Component {
     console.log(this.props.gameArray)
 
     return this.props.gameArray.map((Game, index) => {
-      //   console.log(this.props.imageGame[index],"current img",this.props.gameArray[index])
+         console.log(this.props.imageGame[index],"current img",this.props.gameArray[index])
       let imagePathstr = JSON.stringify(Game.imageSrc)
       let imagePath = imagePathstr.replace(/"/g, '')
       return (
+        <div className="gameCardLine">
         <GameCard
           key={Game.id}
           id={Game.id}
@@ -27,6 +28,15 @@ class Home extends Component {
           image={imagePath}
           isOnHome={this.props.isOnHome}
         ></GameCard>
+        <GameCard
+          key={Game.id}
+          id={Game.id}
+          title={Game.title}
+          description={Game.description}
+          image={imagePath}
+          isOnHome={this.props.isOnHome}
+        ></GameCard>
+        </div>
       )
     })
   }
