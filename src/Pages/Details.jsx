@@ -9,7 +9,12 @@ class Details extends Component {
     isDescriptionSaved: false
   }
 
+componentDidMount() {
+this.props.isOnHome(false)
+}
+
   displayer = () => {
+    console.log(window.location, 'details path')
     console.log(this.props.location.state, 'func')
   }
 
@@ -35,15 +40,23 @@ class Details extends Component {
     if (this.state.isButtonEditClick) {
       return (
         <Fragment>
-          <textarea rows="6" cols="90" onChange={this.onDescriptionChange}>{this.state.description}</textarea>  
-          <button className="saveAndEditButtonDetails" onClick={this.handleButtonSaveClick}>save</button>
+          <textarea rows='6' cols='90' onChange={this.onDescriptionChange}>
+            {this.state.description}
+          </textarea>
+          <button className='saveAndEditButtonDetails' onClick={this.handleButtonSaveClick}>
+            save
+          </button>
         </Fragment>
       )
     } else {
       return (
         <Fragment>
-         <textarea rows="6" cols="90" >{this.state.description}</textarea>  
-          <button className="saveAndEditButtonDetails" onClick={this.handleButtonEditClick}>edit</button>
+          <textarea rows='6' cols='90'>
+            {this.state.description}
+          </textarea>
+          <button className='saveAndEditButtonDetails' onClick={this.handleButtonEditClick}>
+            edit
+          </button>
         </Fragment>
       )
     }
@@ -57,14 +70,17 @@ class Details extends Component {
     return (
       <Fragment>
         <img className='detailsImg' src={this.props.location.state.image} alt='Game'></img>
-        
-        <p className="detailsTitle">{this.props.location.state.title}
-        <button className="deletButtonDetails" onClick={this.handleButtondeletClick}>deletGame</button></p>
-        
+
+        <p className='detailsTitle'>
+          {this.props.location.state.title}
+          <button className='deletButtonDetails' onClick={this.handleButtondeletClick}>
+            deletGame
+          </button>
+        </p>
+
         {this.renderDescritption()}
         {this.displayer()}
       </Fragment>
-      
     )
   }
 }

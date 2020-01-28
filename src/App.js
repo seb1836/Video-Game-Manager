@@ -12,7 +12,7 @@ import streetfighter from './images/streetfighter5.png'
 import warcraft from './images/warcraft3.png'
 import starcraft from './images/starcraft2.png'
 
-let imageGame = [tekken, streetfighter,warcraft,starcraft]
+let imageGame = [tekken, streetfighter, warcraft, starcraft]
 let gameTitleStringify = GameList.map(game => {
   let stringifyTitle = JSON.stringify(game.title)
   return stringifyTitle.replace(/"/g, '')
@@ -38,21 +38,35 @@ class App extends Component {
       gameArray: this.state.gameArray.map((game, index) => {
         if (currentGameId === game.id) {
           game.description = newDescription
-          return game
         }
         return game
       })
     })
   }
 
-  changeIsOnHomeState = () => {
-    this.setState({ isOnHome: !this.state.isOnHome }, () => console.log('called', this.state.isOnHome))
-    //  if (this.state.isOneEntryBeenRemoved){
-    //   this.setState({ gameArray: arrayFiltered })
-    //}else{ this.setState({ gameArray: GameList })}
+  changeIsOnHomeState = onHomePage => {
+    if (onHomePage === false) {
+      return this.setState({ isOnHome: false }, () => console.log('called', this.state.isOnHome))
+      //  if (this.state.isOneEntryBeenRemoved){
+      //   this.setState({ gameArray: arrayFiltered })
+      //}else{ this.setState({ gameArray: GameList })}
+    }
+    this.setState({ isOnHome: true }, () => console.log('called', this.state.isOnHome))
+  }
+
+  updateGameId = idBeingRemove => {
+    this.setState({
+      gameArray: this.state.gameArray.map(game => {
+        if (game.id > idBeingRemove) {
+          game.id -= 1
+        }
+        return game
+      })
+    })
   }
 
   deletGame = currentGameId => {
+    
     if (this.state.isOneEntryBeenRemoved === false) {
       this.setState(
         {
@@ -164,8 +178,8 @@ class App extends Component {
         {this.displayer()}
         <Router>
           <NavBar
-            isOnHomeForNav={this.state.isOnHome}
-            isOnHome={this.changeIsOnHomeState}
+            isOnHome={this.state.isOnHome}
+            isOnHomeChangeState={this.changeIsOnHomeState}
             searchGame={this.searchGame}
             displaySearchBar={this.displaySearchBar()}
           ></NavBar>
