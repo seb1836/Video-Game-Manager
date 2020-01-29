@@ -38,7 +38,7 @@ class Home extends Component {
 
       if (index % 2) {
         return (
-          <div>
+          
             <div className='gameCardLine'>
               
               <GameCard
@@ -50,8 +50,8 @@ class Home extends Component {
                 isOnHome={this.props.isOnHome}
               ></GameCard>
             </div>
-            <div></div>
-            </div>
+            
+            
           
         )
       }
@@ -100,8 +100,7 @@ class Home extends Component {
 
   render() {
     return (
-      console.log(window.location, 'homepath', window.location.href === 'http://localhost:3000/'),
-      (<div>{this.renderGameCard()}</div>)
+      <div className="imagesContainer">{this.renderGameCard()}</div>
     )
   }
 }

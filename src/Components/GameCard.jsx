@@ -16,6 +16,7 @@ const  displayer =() => {
     <Fragment>
       {displayer()}
       <img className="GameCardImg" alt="game" src={props.image}/>
+      <div>
       <p className="GameCardTitle">{props.title}</p>
         
       <Link
@@ -32,6 +33,7 @@ const  displayer =() => {
       >
         <button onClick={handleButtonDetailsClick}>Details</button>
       </Link>
+      </div>
     </Fragment>
   )
 }

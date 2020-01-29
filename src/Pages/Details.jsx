@@ -24,9 +24,9 @@ this.props.isOnHome(false)
       () => console.log(this.state.description),
       this.props.updateDescription(this.props.location.state.id, this.state.description)
     )
-    if (this.state.isDescriptionSaved) {
+    
       alert('save')
-    }
+    
   }
 
   handleButtonEditClick = () => {
@@ -37,6 +37,7 @@ this.props.isOnHome(false)
   }
 
   renderDescritption = () => {
+    console.log("pass into desc")
     if (this.state.isButtonEditClick) {
       return (
         <Fragment>
@@ -51,7 +52,7 @@ this.props.isOnHome(false)
     } else {
       return (
         <Fragment>
-          <textarea rows='6' cols='90'>
+          <textarea readOnly rows='6' cols='90'>
             {this.state.description}
           </textarea>
           <button className='saveAndEditButtonDetails' onClick={this.handleButtonEditClick}>
@@ -73,6 +74,7 @@ this.props.isOnHome(false)
 
         <p className='detailsTitle'>
           {this.props.location.state.title}
+          <br/>
           <button className='deletButtonDetails' onClick={this.handleButtondeletClick}>
             deletGame
           </button>
