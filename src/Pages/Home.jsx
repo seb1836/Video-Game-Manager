@@ -36,27 +36,29 @@ class Home extends Component {
 
       //   alert('pass')
 
-      if (index % 2) {
-        return (
+      // if (index % 2) {
+      //   return (
           
-            <div className='gameCardLine'>
+      //       <div className='gameCardLine'>
               
-              <GameCard
-                key={Game.id}
-                id={Game.id}
-                title={Game.title}
-                description={Game.description}
-                image={imagePath}
-                isOnHome={this.props.isOnHome}
-              ></GameCard>
-            </div>
+      //         <GameCard
+      //           key={Game.id}
+      //           id={Game.id}
+      //           title={Game.title}
+      //           description={Game.description}
+      //           image={imagePath}
+      //           isOnHome={this.props.isOnHome}
+      //         ></GameCard>
+      //       </div>
             
             
           
-        )
-      }
+      //   )
+      // }
       return (
-        <div className='gameCardLine'>
+        
+        <div className={`gameCardLine${index+1}`}>
+          
           <GameCard
             key={Game.id}
             id={Game.id}
@@ -65,6 +67,7 @@ class Home extends Component {
             image={imagePath}
             isOnHome={this.props.isOnHome}
           ></GameCard>
+        
         </div>
       )
       //  }
