@@ -100,11 +100,18 @@ class Home extends Component {
       // }
     })
   }
-
-  render() {
+  renderImagesContainer = () => {
+    if (this.props.gameArray.length===1){
+      return(<div className="imagesContainer solo">{this.renderGameCard()}</div>)
+    }else if (this.props.gameArray.length<4){
+      return(<div className="imagesContainer NotFull">{this.renderGameCard()}</div>)
+    }
     return (
-      <div className="imagesContainer">{this.renderGameCard()}</div>
-    )
+      <div className="imagesContainer">{this.renderGameCard()}</div>)
   }
+  render() {
+    return(<div> {this.renderImagesContainer()}</div>
+    
+    )}
 }
 export default Home
