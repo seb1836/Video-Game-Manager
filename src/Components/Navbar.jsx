@@ -36,6 +36,7 @@ class Navbar extends Component {
             <h1 onClick={this.props.isOnHomeChangeState}>Home</h1>
           </Link>
           {this.displaySearchBar()}
+          <h1 className="title">Video-Game-Manager</h1>
         </nav>
       </Fragment>
     )
